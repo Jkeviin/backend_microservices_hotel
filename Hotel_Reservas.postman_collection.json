@@ -1,0 +1,1004 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Hotel Reservas - Sistema Completo",
+		"description": "Coleccion completa para el sistema de reservas de hotel.\n\nMicroservicios:\n- Clientes (8081)\n- Inventario (8082)\n- Reservas (8083)\n- Pagos (8084)\n\nConfigurar la variable `token` con un JWT valido antes de ejecutar las peticiones.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_clientes",
+			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "base_inventario",
+			"value": "http://localhost:8082",
+			"type": "string"
+		},
+		{
+			"key": "base_reservas",
+			"value": "http://localhost:8083",
+			"type": "string"
+		},
+		{
+			"key": "base_pagos",
+			"value": "http://localhost:8084",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Clientes",
+			"description": "Microservicio de gestion de clientes (puerto 8081)",
+			"item": [
+				{
+					"name": "Crear cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\": \"Carlos Martinez\",\n\t\"email\": \"carlos.martinez@email.com\",\n\t\"telefono\": \"3001234567\"\n}"
+						},
+						"url": {
+							"raw": "{{base_clientes}}/api/clientes",
+							"host": [
+								"{{base_clientes}}"
+							],
+							"path": [
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Crea un nuevo cliente en el sistema."
+					},
+					"response": [
+						{
+							"name": "201 - Cliente creado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nombre\": \"Carlos Martinez\",\n\t\"email\": \"carlos.martinez@email.com\",\n\t\"telefono\": \"3001234567\"\n}"
+								},
+								"url": {
+									"raw": "{{base_clientes}}/api/clientes",
+									"host": [
+										"{{base_clientes}}"
+									],
+									"path": [
+										"api",
+										"clientes"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"nombre\": \"Carlos Martinez\",\n\t\"email\": \"carlos.martinez@email.com\",\n\t\"telefono\": \"3001234567\",\n\t\"creado_en\": \"2026-03-13T10:00:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener cliente por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_clientes}}/api/clientes/1",
+							"host": [
+								"{{base_clientes}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						},
+						"description": "Obtiene los datos de un cliente por su ID."
+					},
+					"response": [
+						{
+							"name": "200 - Cliente encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_clientes}}/api/clientes/1",
+									"host": [
+										"{{base_clientes}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"nombre\": \"Carlos Martinez\",\n\t\"email\": \"carlos.martinez@email.com\",\n\t\"telefono\": \"3001234567\",\n\t\"creado_en\": \"2026-03-13T10:00:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Actualizar cliente",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"telefono\": \"3009999999\"\n}"
+						},
+						"url": {
+							"raw": "{{base_clientes}}/api/clientes/1",
+							"host": [
+								"{{base_clientes}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						},
+						"description": "Actualiza parcialmente los datos de un cliente."
+					},
+					"response": [
+						{
+							"name": "200 - Cliente actualizado",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"telefono\": \"3009999999\"\n}"
+								},
+								"url": {
+									"raw": "{{base_clientes}}/api/clientes/1",
+									"host": [
+										"{{base_clientes}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"nombre\": \"Carlos Martinez\",\n\t\"email\": \"carlos.martinez@email.com\",\n\t\"telefono\": \"3009999999\",\n\t\"actualizado_en\": \"2026-03-13T11:00:00Z\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Inventario",
+			"description": "Microservicio de inventario de habitaciones (puerto 8082)",
+			"item": [
+				{
+					"name": "Listar todas las habitaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_inventario}}/api/habitaciones",
+							"host": [
+								"{{base_inventario}}"
+							],
+							"path": [
+								"api",
+								"habitaciones"
+							]
+						},
+						"description": "Lista todas las habitaciones del hotel."
+					},
+					"response": [
+						{
+							"name": "200 - Lista de habitaciones",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_inventario}}/api/habitaciones",
+									"host": [
+										"{{base_inventario}}"
+									],
+									"path": [
+										"api",
+										"habitaciones"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "[\n\t{\n\t\t\"id\": 1,\n\t\t\"numero\": \"101\",\n\t\t\"id_tipo\": 1,\n\t\t\"tipo\": \"Sencilla\",\n\t\t\"estado\": \"disponible\",\n\t\t\"precio_noche\": 120.00\n\t},\n\t{\n\t\t\"id\": 2,\n\t\t\"numero\": \"201\",\n\t\t\"id_tipo\": 2,\n\t\t\"tipo\": \"Doble\",\n\t\t\"estado\": \"ocupada\",\n\t\t\"precio_noche\": 200.00\n\t}\n]"
+						}
+					]
+				},
+				{
+					"name": "Listar habitaciones disponibles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_inventario}}/api/habitaciones?estado=disponible",
+							"host": [
+								"{{base_inventario}}"
+							],
+							"path": [
+								"api",
+								"habitaciones"
+							],
+							"query": [
+								{
+									"key": "estado",
+									"value": "disponible",
+									"description": "Filtra habitaciones por estado (disponible, ocupada, mantenimiento)"
+								}
+							]
+						},
+						"description": "Lista las habitaciones filtradas por estado disponible."
+					},
+					"response": [
+						{
+							"name": "200 - Habitaciones disponibles",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_inventario}}/api/habitaciones?estado=disponible",
+									"host": [
+										"{{base_inventario}}"
+									],
+									"path": [
+										"api",
+										"habitaciones"
+									],
+									"query": [
+										{
+											"key": "estado",
+											"value": "disponible"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "[\n\t{\n\t\t\"id\": 1,\n\t\t\"numero\": \"101\",\n\t\t\"id_tipo\": 1,\n\t\t\"tipo\": \"Sencilla\",\n\t\t\"estado\": \"disponible\",\n\t\t\"precio_noche\": 120.00\n\t},\n\t{\n\t\t\"id\": 3,\n\t\t\"numero\": \"301\",\n\t\t\"id_tipo\": 3,\n\t\t\"tipo\": \"Suite\",\n\t\t\"estado\": \"disponible\",\n\t\t\"precio_noche\": 350.00\n\t}\n]"
+						}
+					]
+				},
+				{
+					"name": "Habitaciones disponibles por rango de fechas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_inventario}}/api/habitaciones?disponible_desde=2026-04-01&disponible_hasta=2026-04-05",
+							"host": [
+								"{{base_inventario}}"
+							],
+							"path": [
+								"api",
+								"habitaciones"
+							],
+							"query": [
+								{
+									"key": "disponible_desde",
+									"value": "2026-04-01",
+									"description": "Fecha inicio del rango de disponibilidad (YYYY-MM-DD)"
+								},
+								{
+									"key": "disponible_hasta",
+									"value": "2026-04-05",
+									"description": "Fecha fin del rango de disponibilidad (YYYY-MM-DD)"
+								}
+							]
+						},
+						"description": "Lista habitaciones disponibles en un rango de fechas especifico."
+					},
+					"response": [
+						{
+							"name": "200 - Habitaciones disponibles en rango",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_inventario}}/api/habitaciones?disponible_desde=2026-04-01&disponible_hasta=2026-04-05",
+									"host": [
+										"{{base_inventario}}"
+									],
+									"path": [
+										"api",
+										"habitaciones"
+									],
+									"query": [
+										{
+											"key": "disponible_desde",
+											"value": "2026-04-01"
+										},
+										{
+											"key": "disponible_hasta",
+											"value": "2026-04-05"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "[\n\t{\n\t\t\"id\": 1,\n\t\t\"numero\": \"101\",\n\t\t\"id_tipo\": 1,\n\t\t\"tipo\": \"Sencilla\",\n\t\t\"estado\": \"disponible\",\n\t\t\"precio_noche\": 120.00\n\t}\n]"
+						}
+					]
+				},
+				{
+					"name": "Obtener habitacion por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_inventario}}/api/habitaciones/1",
+							"host": [
+								"{{base_inventario}}"
+							],
+							"path": [
+								"api",
+								"habitaciones",
+								"1"
+							]
+						},
+						"description": "Obtiene los detalles de una habitacion por su ID."
+					},
+					"response": [
+						{
+							"name": "200 - Habitacion encontrada",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_inventario}}/api/habitaciones/1",
+									"host": [
+										"{{base_inventario}}"
+									],
+									"path": [
+										"api",
+										"habitaciones",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"numero\": \"101\",\n\t\"id_tipo\": 1,\n\t\"tipo\": \"Sencilla\",\n\t\"estado\": \"disponible\",\n\t\"precio_noche\": 120.00,\n\t\"descripcion\": \"Habitacion sencilla con cama individual\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Actualizar habitacion (admin)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"estado\": \"mantenimiento\"\n}"
+						},
+						"url": {
+							"raw": "{{base_inventario}}/api/habitaciones/3",
+							"host": [
+								"{{base_inventario}}"
+							],
+							"path": [
+								"api",
+								"habitaciones",
+								"3"
+							]
+						},
+						"description": "Actualiza el estado de una habitacion. Requiere permisos de administrador."
+					},
+					"response": [
+						{
+							"name": "200 - Habitacion actualizada",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"estado\": \"mantenimiento\"\n}"
+								},
+								"url": {
+									"raw": "{{base_inventario}}/api/habitaciones/3",
+									"host": [
+										"{{base_inventario}}"
+									],
+									"path": [
+										"api",
+										"habitaciones",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 3,\n\t\"numero\": \"301\",\n\t\"id_tipo\": 3,\n\t\"tipo\": \"Suite\",\n\t\"estado\": \"mantenimiento\",\n\t\"precio_noche\": 350.00\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar tipos de habitacion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_inventario}}/api/tipos-habitacion",
+							"host": [
+								"{{base_inventario}}"
+							],
+							"path": [
+								"api",
+								"tipos-habitacion"
+							]
+						},
+						"description": "Lista el catalogo de tipos de habitacion disponibles."
+					},
+					"response": [
+						{
+							"name": "200 - Tipos de habitacion",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_inventario}}/api/tipos-habitacion",
+									"host": [
+										"{{base_inventario}}"
+									],
+									"path": [
+										"api",
+										"tipos-habitacion"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "[\n\t{\n\t\t\"id\": 1,\n\t\t\"nombre\": \"Sencilla\",\n\t\t\"capacidad\": 1,\n\t\t\"precio_base\": 120.00\n\t},\n\t{\n\t\t\"id\": 2,\n\t\t\"nombre\": \"Doble\",\n\t\t\"capacidad\": 2,\n\t\t\"precio_base\": 200.00\n\t},\n\t{\n\t\t\"id\": 3,\n\t\t\"nombre\": \"Suite\",\n\t\t\"capacidad\": 4,\n\t\t\"precio_base\": 350.00\n\t}\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Reservas",
+			"description": "Microservicio de gestion de reservas (puerto 8083)",
+			"item": [
+				{
+					"name": "Crear reserva",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$guid}}",
+								"description": "Clave unica para garantizar idempotencia de la operacion"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_cliente\": 1,\n\t\"id_habitacion\": 3,\n\t\"fecha_inicio\": \"2026-04-01\",\n\t\"fecha_fin\": \"2026-04-05\"\n}"
+						},
+						"url": {
+							"raw": "{{base_reservas}}/api/reservas",
+							"host": [
+								"{{base_reservas}}"
+							],
+							"path": [
+								"api",
+								"reservas"
+							]
+						},
+						"description": "Crea una nueva reserva. Requiere el header Idempotency-Key para garantizar que la operacion sea idempotente."
+					},
+					"response": [
+						{
+							"name": "201 - Reserva creada",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Idempotency-Key",
+										"value": "550e8400-e29b-41d4-a716-446655440000"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id_cliente\": 1,\n\t\"id_habitacion\": 3,\n\t\"fecha_inicio\": \"2026-04-01\",\n\t\"fecha_fin\": \"2026-04-05\"\n}"
+								},
+								"url": {
+									"raw": "{{base_reservas}}/api/reservas",
+									"host": [
+										"{{base_reservas}}"
+									],
+									"path": [
+										"api",
+										"reservas"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"id_cliente\": 1,\n\t\"id_habitacion\": 3,\n\t\"fecha_inicio\": \"2026-04-01\",\n\t\"fecha_fin\": \"2026-04-05\",\n\t\"estado\": \"confirmada\",\n\t\"monto_total\": 1400.00,\n\t\"version\": 1,\n\t\"creado_en\": \"2026-03-13T10:30:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener reserva por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_reservas}}/api/reservas/1",
+							"host": [
+								"{{base_reservas}}"
+							],
+							"path": [
+								"api",
+								"reservas",
+								"1"
+							]
+						},
+						"description": "Obtiene los detalles de una reserva por su ID."
+					},
+					"response": [
+						{
+							"name": "200 - Reserva encontrada",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_reservas}}/api/reservas/1",
+									"host": [
+										"{{base_reservas}}"
+									],
+									"path": [
+										"api",
+										"reservas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"id_cliente\": 1,\n\t\"id_habitacion\": 3,\n\t\"fecha_inicio\": \"2026-04-01\",\n\t\"fecha_fin\": \"2026-04-05\",\n\t\"estado\": \"confirmada\",\n\t\"monto_total\": 1400.00,\n\t\"version\": 1,\n\t\"creado_en\": \"2026-03-13T10:30:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancelar reserva",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"accion\": \"cancelar\",\n\t\"version\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_reservas}}/api/reservas/1",
+							"host": [
+								"{{base_reservas}}"
+							],
+							"path": [
+								"api",
+								"reservas",
+								"1"
+							]
+						},
+						"description": "Cancela una reserva existente. El campo version se usa para control de concurrencia optimista."
+					},
+					"response": [
+						{
+							"name": "200 - Reserva cancelada",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"accion\": \"cancelar\",\n\t\"version\": 1\n}"
+								},
+								"url": {
+									"raw": "{{base_reservas}}/api/reservas/1",
+									"host": [
+										"{{base_reservas}}"
+									],
+									"path": [
+										"api",
+										"reservas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"id_cliente\": 1,\n\t\"id_habitacion\": 3,\n\t\"fecha_inicio\": \"2026-04-01\",\n\t\"fecha_fin\": \"2026-04-05\",\n\t\"estado\": \"cancelada\",\n\t\"monto_total\": 1400.00,\n\t\"version\": 2,\n\t\"actualizado_en\": \"2026-03-13T12:00:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reprogramar reserva",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"fecha_inicio\": \"2026-05-10\",\n\t\"fecha_fin\": \"2026-05-15\",\n\t\"version\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_reservas}}/api/reservas/1",
+							"host": [
+								"{{base_reservas}}"
+							],
+							"path": [
+								"api",
+								"reservas",
+								"1"
+							]
+						},
+						"description": "Reprograma las fechas de una reserva existente. El campo version se usa para control de concurrencia optimista."
+					},
+					"response": [
+						{
+							"name": "200 - Reserva reprogramada",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"fecha_inicio\": \"2026-05-10\",\n\t\"fecha_fin\": \"2026-05-15\",\n\t\"version\": 1\n}"
+								},
+								"url": {
+									"raw": "{{base_reservas}}/api/reservas/1",
+									"host": [
+										"{{base_reservas}}"
+									],
+									"path": [
+										"api",
+										"reservas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"id_cliente\": 1,\n\t\"id_habitacion\": 3,\n\t\"fecha_inicio\": \"2026-05-10\",\n\t\"fecha_fin\": \"2026-05-15\",\n\t\"estado\": \"confirmada\",\n\t\"monto_total\": 1750.00,\n\t\"version\": 2,\n\t\"actualizado_en\": \"2026-03-13T13:00:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar estados de reserva",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_reservas}}/api/reservas/estados",
+							"host": [
+								"{{base_reservas}}"
+							],
+							"path": [
+								"api",
+								"reservas",
+								"estados"
+							]
+						},
+						"description": "Lista el catalogo de estados posibles de una reserva."
+					},
+					"response": [
+						{
+							"name": "200 - Estados de reserva",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_reservas}}/api/reservas/estados",
+									"host": [
+										"{{base_reservas}}"
+									],
+									"path": [
+										"api",
+										"reservas",
+										"estados"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "[\n\t{\n\t\t\"id\": 1,\n\t\t\"nombre\": \"pendiente\",\n\t\t\"descripcion\": \"Reserva creada, pendiente de confirmacion\"\n\t},\n\t{\n\t\t\"id\": 2,\n\t\t\"nombre\": \"confirmada\",\n\t\t\"descripcion\": \"Reserva confirmada\"\n\t},\n\t{\n\t\t\"id\": 3,\n\t\t\"nombre\": \"cancelada\",\n\t\t\"descripcion\": \"Reserva cancelada por el cliente o el sistema\"\n\t},\n\t{\n\t\t\"id\": 4,\n\t\t\"nombre\": \"completada\",\n\t\t\"descripcion\": \"Estadia completada\"\n\t}\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Pagos",
+			"description": "Microservicio de gestion de pagos (puerto 8084)",
+			"item": [
+				{
+					"name": "Crear pago",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Idempotency-Key",
+								"value": "{{$guid}}",
+								"description": "Clave unica para garantizar idempotencia de la operacion"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id_reserva\": 1,\n\t\"monto\": 480.00,\n\t\"fecha_pago\": \"2026-04-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_pagos}}/api/pagos",
+							"host": [
+								"{{base_pagos}}"
+							],
+							"path": [
+								"api",
+								"pagos"
+							]
+						},
+						"description": "Registra un nuevo pago asociado a una reserva. Requiere el header Idempotency-Key para garantizar que la operacion sea idempotente."
+					},
+					"response": [
+						{
+							"name": "201 - Pago creado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Idempotency-Key",
+										"value": "660e8400-e29b-41d4-a716-446655440001"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id_reserva\": 1,\n\t\"monto\": 480.00,\n\t\"fecha_pago\": \"2026-04-01\"\n}"
+								},
+								"url": {
+									"raw": "{{base_pagos}}/api/pagos",
+									"host": [
+										"{{base_pagos}}"
+									],
+									"path": [
+										"api",
+										"pagos"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"id_reserva\": 1,\n\t\"monto\": 480.00,\n\t\"fecha_pago\": \"2026-04-01\",\n\t\"estado\": \"completado\",\n\t\"creado_en\": \"2026-03-13T14:00:00Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener pago por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_pagos}}/api/pagos/1",
+							"host": [
+								"{{base_pagos}}"
+							],
+							"path": [
+								"api",
+								"pagos",
+								"1"
+							]
+						},
+						"description": "Obtiene los detalles de un pago por su ID."
+					},
+					"response": [
+						{
+							"name": "200 - Pago encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_pagos}}/api/pagos/1",
+									"host": [
+										"{{base_pagos}}"
+									],
+									"path": [
+										"api",
+										"pagos",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n\t\"id\": 1,\n\t\"id_reserva\": 1,\n\t\"monto\": 480.00,\n\t\"fecha_pago\": \"2026-04-01\",\n\t\"estado\": \"completado\",\n\t\"creado_en\": \"2026-03-13T14:00:00Z\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/tmp/
+
+# Go
+*.test
+*.out
+cover.out
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Frontend (repo separado)
+Aca-Final-BD-main/
+
+# Docker volumes
+mysql_data/
+
+# Environment
+.env
+.env.local
+*.mwb.bak

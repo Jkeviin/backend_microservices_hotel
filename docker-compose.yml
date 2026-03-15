@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: hotel_mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: hotel_reservas
+      MYSQL_USER: hotel_user
+      MYSQL_PASSWORD: hotel_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./DB/DataBaseCreationScript.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./DB/AlterTables.sql:/docker-entrypoint-initdb.d/02-alter.sql
+      - ./DB/InserUserData.sql:/docker-entrypoint-initdb.d/03-data.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  clientes:
+    build:
+      context: ./services/clientes
+      dockerfile: Dockerfile
+    container_name: hotel_clientes
+    environment:
+      DB_DSN: "hotel_user:hotel_pass@tcp(mysql:3306)/hotel_reservas?parseTime=true"
+      JWT_SECRET: "dev-secret-change-me"
+      PORT: "8081"
+      USE_MOCK_DB: "false"
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  inventario:
+    build:
+      context: ./services/inventario
+      dockerfile: Dockerfile
+    container_name: hotel_inventario
+    environment:
+      DB_DSN: "hotel_user:hotel_pass@tcp(mysql:3306)/hotel_reservas?parseTime=true"
+      JWT_SECRET: "dev-secret-change-me"
+      PORT: "8082"
+      USE_MOCK_DB: "false"
+    ports:
+      - "8082:8082"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  reservas:
+    build:
+      context: ./services/reservas
+      dockerfile: Dockerfile
+    container_name: hotel_reservas_svc
+    environment:
+      DB_DSN: "hotel_user:hotel_pass@tcp(mysql:3306)/hotel_reservas?parseTime=true"
+      JWT_SECRET: "dev-secret-change-me"
+      PORT: "8083"
+      USE_MOCK_DB: "false"
+    ports:
+      - "8083:8083"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  pagos:
+    build:
+      context: ./services/pagos
+      dockerfile: Dockerfile
+    container_name: hotel_pagos
+    environment:
+      DB_DSN: "hotel_user:hotel_pass@tcp(mysql:3306)/hotel_reservas?parseTime=true"
+      JWT_SECRET: "dev-secret-change-me"
+      PORT: "8084"
+      USE_MOCK_DB: "false"
+    ports:
+      - "8084:8084"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
