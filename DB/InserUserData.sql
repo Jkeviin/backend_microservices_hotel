@@ -1,3 +1,4 @@
+SET NAMES utf8mb4;
 USE hotel_reservas;
 
 -- 5 Estados de Reserva (alineados con los microservicios)
